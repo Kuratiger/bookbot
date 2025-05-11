@@ -1,35 +1,25 @@
 from stats import get_num_words
 from stats import get_character_tally
 from stats import get_ordered_character_tally
+from sys import argv
 
 def get_book_text(path_to_file):
     with open(path_to_file) as f:
         file_contents = f.read()
         return file_contents
 
-# Get count of words
-#def main():
-#    num_words = len(get_num_words(get_book_text("books/frankenstein.txt")))
-#    print(f"{num_words} words found in the document")
-
-#get tally of characters
-#def main():
-#    character_tally = get_character_tally(get_book_text("books/frankenstein.txt"))
-#    print(character_tally)
-
-#get ordered tally of characters
-#def main():
-#    ordered_character_tally = get_ordered_character_tally(get_character_tally(get_book_text("books/frankenstein.txt")))
-#    print(ordered_character_tally)
-
 def main():
+    #check if correct number of inputs
+    if len(argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        exit(1)
     #get number of words and ordered tally
-    num_words = len(get_num_words(get_book_text("books/frankenstein.txt")))
-    ordered_character_tally = get_ordered_character_tally(get_character_tally(get_book_text("books/frankenstein.txt")))
+    num_words = len(get_num_words(get_book_text(argv[1])))
+    ordered_character_tally = get_ordered_character_tally(get_character_tally(get_book_text(argv[1])))
 
     #print header
-    print("""============ BOOKBOT ============
-Analyzing book found at books/frankenstein.txt...""")
+    print(f"""============ BOOKBOT ============
+Analyzing book found at {argv[1]}...""")
     #print word count
     print(f"""----------- Word Count ----------
 Found {num_words} total words""")
